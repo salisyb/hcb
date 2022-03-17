@@ -184,11 +184,11 @@ EMAIL_USE_SSL = True
 
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 
-EMAIL_HOST = 'mail.kanostatehcb.com'
+EMAIL_HOST = os.environ.get('hcb_email_host')
 
-EMAIL_HOST_PASSWORD = "aDMIN@KHCB"
+EMAIL_HOST_PASSWORD = os.environ.get('hcb_email_pass')
 
-EMAIL_HOST_USER = 'admin@kanostatehcb.com'
+EMAIL_HOST_USER = os.environ.get('hcb_email')
 
 EMAIL_PORT = 465
 
