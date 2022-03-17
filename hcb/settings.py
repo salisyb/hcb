@@ -25,9 +25,9 @@ SECRET_KEY = 'django-insecure-cd$yfp%fv+2u+_%!wz&_&j60g#&e&8yp!k^8_7t@j@f%5-a%0j
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['127.0.0.1', 'localhost', '192.168.43.39']
 
-
+# AUTH_USER_MODEL = 'users.User'
 # Application definition
 
 INSTALLED_APPS = [
@@ -37,11 +37,10 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'corsheaders'
+    'corsheaders',
     'rest_framework',
     'knox',
     'users',
-    'frontend'
 ]
 
 MIDDLEWARE = [
@@ -52,9 +51,18 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'corsheaders.middleware.CorsMiddleware',
 ]
 
 ROOT_URLCONF = 'hcb.urls'
+
+REST_FRAMEWORK = {
+    'DEFAULT_AUTHENTICATION_CLASSES': [
+        # 'rest_framework.authentication.BasicAuthentication',
+        # 'rest_framework.authentication.SessionAuthentication',
+        'knox.auth.TokenAuthentication',
+    ]
+}
 
 TEMPLATES = [
     {
@@ -129,5 +137,40 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 
 CORS_ORIGIN_WHITELIST = [
-    'http://localhost:3000'
+    'http://localhost:3000',
+    'http://192.168.43.39:3000'
 ]
+
+
+# EMAIL CONFIG USING GMAIL
+
+# EMAIL_USE_SSL = True
+
+# EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+
+# EMAIL_HOST = 'smtp.gmail.com'
+
+# EMAIL_HOST_PASSWORD = "TripleA7"
+
+# EMAIL_HOST_USER = 'help.unlockarewa@gmail.com'
+
+# EMAIL_PORT = 465
+
+# DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
+
+
+# EMAIL CONFIG USING CUSTOM DOMAIN
+
+EMAIL_USE_SSL = True
+
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+
+EMAIL_HOST = 'mail.kanostatehcb.com'
+
+EMAIL_HOST_PASSWORD = "aDMIN@KHCB"
+
+EMAIL_HOST_USER = 'admin@kanostatehcb.com'
+
+EMAIL_PORT = 465
+
+DEFAULT_FROM_EMAIL = EMAIL_HOST_USER

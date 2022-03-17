@@ -1,4 +1,3 @@
-from dataclasses import field
 from rest_framework import serializers
 from django.contrib.auth.models import User
 from django.contrib.auth import authenticate
@@ -21,12 +20,11 @@ class RegisterSerializer(serializers.ModelSerializer):
         extra_kwargs = {'password': {'write_only': True}}
 
     def create(self, validated_data):
-
         user = User.objects.create_user(
             validated_data['username'], validated_data['email'], validated_data['password'])
 
-        user.first_name = validated_data['first_name']
-        user.last_name = validated_data['last_name']
+        user.first_name = validated_data.get('first_name', '')
+        user.last_name = validated_data.get('last_name', '')
         user.save()
 
         return user
@@ -41,3 +39,7 @@ class LoginSerializer(serializers.Serializer):
         if user and user.is_active:
             return user
         raise serializers.ValidationError("Incorrect Password or Username")
+
+
+class EmailVerificationSerializer(serializers.Serializer):
+    otp = serializers.CharField()
