@@ -16,6 +16,7 @@ class Profile(models.Model):
     dob = models.DateField(auto_now_add=True)
     phone_number = models.CharField(max_length=200)
     subscription = models.BooleanField(default=False)
+    subscription_type = models.CharField(max_length=100, default='None')
 
 
 class Security(models.Model):
