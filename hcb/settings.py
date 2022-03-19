@@ -46,6 +46,7 @@ INSTALLED_APPS = [
     'knox',
     'subscription',
     'users',
+    'catalog'
 ]
 
 MIDDLEWARE = [
